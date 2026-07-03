@@ -1,0 +1,17 @@
+# editors / OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+.zed/
+.obsidian/
+
+# tooling
+__pycache__/
+*.py[cod]
+node_modules/
+
+# local agent state
+.claude/settings.local.json
