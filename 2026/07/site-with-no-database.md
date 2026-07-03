@@ -1,6 +1,7 @@
 ---
 title: a personal site with no database
 date: 2026-07-03
+published: 2026-07-03T13:11:53+03:00
 tags: [go, architecture]
 description: how victorzh.uk stays stateless — embedded facts, in-memory articles, client-carried chat
 ---

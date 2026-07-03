@@ -14,9 +14,11 @@ before the push itself.
 1. Preflight: `python3 scripts/check.py` exits 0; an editor review happened
    this session or the user explicitly skips it.
 2. Set frontmatter `date` to the publish date (confirm if it differs from the
-   scaffold date) and remove the `draft` line. Re-file to the matching
-   `YYYY/MM/` with `git mv` if the month changed — the filename itself never
-   changes at publish time (it is the URL).
+   scaffold date), set `published` to the current moment as RFC3339 with the
+   local offset (`date +%Y-%m-%dT%H:%M:%S%:z`) — it is the catalog sort key
+   and never changes afterwards — and remove the `draft` line. Re-file to the
+   matching `YYYY/MM/` with `git mv` if the month changed — the filename
+   itself never changes at publish time (it is the URL).
 3. Description must be real (not a placeholder) — it becomes the share card.
 4. Commit `post: add <slug>`, push `master`.
 5. Verify after the refresh window (up to 10 minutes):

@@ -9,9 +9,11 @@ and serves whatever parses. Pushing to `master` IS publishing.
 - Scans `**/*.md`; skips any `README.md` (case-insensitive), dot-directories,
   non-markdown, and files over 1 MB.
 - Frontmatter: `title` and `date` required. `date` is `YYYY-MM-DD` (canonical
-  article date; RFC3339 tolerated but avoid it). Optional: `tags` (list),
-  `description` (string), `draft` (bool). Unknown keys are silently ignored —
-  a typo in a key name silently loses that field.
+  article date; RFC3339 tolerated but avoid it). Optional: `published`
+  (RFC3339 timestamp of the publish moment — the catalog sort key, falling
+  back to `date`; `/publish` sets it, don't edit it afterwards), `tags`
+  (list), `description` (string), `draft` (bool). Unknown keys are silently
+  ignored — a typo in a key name silently loses that field.
 - Slug = filename without `.md`. URL = `/slog/{slug}`. Slugs must match
   `[a-z0-9-]+` — the chat's link rendering only linkifies that shape.
   **Renaming a file changes its URL**; keep filenames stable after publishing.

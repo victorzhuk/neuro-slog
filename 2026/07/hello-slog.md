@@ -1,6 +1,7 @@
 ---
 title: hello, neuro slog
 date: 2026-07-03
+published: 2026-07-03T13:11:49+03:00
 tags: [meta]
 description: what this blog is and how it publishes itself
 ---

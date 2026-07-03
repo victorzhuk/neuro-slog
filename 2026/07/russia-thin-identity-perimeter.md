@@ -1,6 +1,7 @@
 ---
 title: a thin identity perimeter for russia
 date: 2026-07-03
+published: 2026-07-03T13:32:58+03:00
 tags: [architecture, compliance, russia]
 description: A thin Russian identity node satisfies 152-FZ. СБП and Мир payments are what actually force a Russian entity.
 ---

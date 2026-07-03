@@ -17,7 +17,7 @@ KEY_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$")
 RFC3339_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T")
 MAX_FILE = 1 << 20
 DESC_MAX = 160
-KNOWN_KEYS = {"title", "date", "tags", "description", "draft"}
+KNOWN_KEYS = {"title", "date", "published", "tags", "description", "draft"}
 META_FILES = {"readme.md", "claude.md", "agents.md", "contributing.md", "license.md"}
 
 
@@ -145,10 +145,22 @@ def main(argv):
             elif verdict == "warn":
                 warn(rel, "RFC3339 date works but prefer bare YYYY-MM-DD")
 
+        published = fm.get("published", "")
+        if published:
+            try:
+                ts = datetime.datetime.fromisoformat(published)
+                if ts.tzinfo is None:
+                    warn(rel, "published has no timezone offset — use full RFC3339")
+            except ValueError:
+                err(rel, f"published {published!r} is not an RFC3339 timestamp")
+
         draft = str(fm.get("draft", "false")).lower()
         if draft not in ("true", "false"):
             err(rel, f"draft must be true or false, got {fm['draft']!r}")
         is_draft = draft == "true"
+
+        if not published and not is_draft:
+            warn(rel, "published article has no published timestamp — catalog sorting falls back to date")
 
         desc = fm.get("description", "")
         if not desc and not is_draft:

@@ -1,6 +1,7 @@
 ---
 title: deterministic intake beats a model tool
 date: 2026-07-03
+published: 2026-07-03T13:11:56+03:00
 tags: [go, llm, chat]
 description: why the contact form in victor_ai is a state machine, not a tool call
 ---
