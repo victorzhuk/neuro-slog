@@ -11,9 +11,11 @@ and serves whatever parses. Pushing to `master` IS publishing.
 - Frontmatter: `title` and `date` required. `date` is `YYYY-MM-DD` (canonical
   article date; RFC3339 tolerated but avoid it). Optional: `published`
   (RFC3339 timestamp of the publish moment — the catalog sort key, falling
-  back to `date`; `/publish` sets it, don't edit it afterwards), `tags`
-  (list), `description` (string), `draft` (bool). Unknown keys are silently
-  ignored — a typo in a key name silently loses that field.
+  back to `date`; `/publish` sets it, don't edit it afterwards), `updated`
+  (RFC3339 timestamp of the last substantive update, shown on the article
+  page; `/publish` sets it on updates — not for typo/typography fixes),
+  `tags` (list), `description` (string), `draft` (bool). Unknown keys are
+  silently ignored — a typo in a key name silently loses that field.
 - Slug = filename without `.md`. URL = `/slog/{slug}`. Slugs must match
   `[a-z0-9-]+` — the chat's link rendering only linkifies that shape.
   **Renaming a file changes its URL**; keep filenames stable after publishing.
@@ -44,6 +46,11 @@ Terse, concrete, first person. Lowercase titles. Normal sentence prose in the
 body — short paragraphs, one idea per post, end on a takeaway or a rule of
 thumb. Dry humor fine, filler not. No emoji, no corporate phrasing, no
 listicles for their own sake. Code snippets minimal and runnable.
+
+Drafts are authored in plain ASCII (two hyphens for a dash, `->` arrows);
+`/editor-review` owns the typography pass that converts prose to `—`, `→`,
+`↔`, `…`, and en-dash ranges before publishing. `check.py` warns when a
+published post still carries ASCII typography.
 
 ## License
 

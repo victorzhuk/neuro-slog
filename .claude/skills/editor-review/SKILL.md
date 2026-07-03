@@ -24,12 +24,22 @@ findings first; apply edits only when asked or when the user said "fix it".
 4. **Facts.** Verify technical claims where the repo, linked code, or docs
    allow; anything unverifiable gets flagged with a suggested softening or a
    source to check. Code snippets must be plausible and minimal.
-5. **Metadata.** Title: lowercase, specific, no clickbait. Description:
+5. **Typography.** Drafts arrive in plain ASCII; this pass converts prose to
+   typographic characters (always applied, not just flagged):
+   - two hyphens (` -- `) → em dash ` — `
+   - ` -> ` / ` <- ` / ` <-> ` → ` → ` / ` ← ` / ` ↔ `
+   - `...` → `…`
+   - number ranges (`25-50%`) → en dash (`25–50%`) — never dates, slugs, or
+     identifiers
+   Fenced code blocks are never touched. Inline code spans only when the
+   span is prose notation (a mapping like `a ↔ b`); commands, flags, and
+   real code stay ASCII.
+6. **Metadata.** Title: lowercase, specific, no clickbait. Description:
    under 160 chars, states the actual payoff (it feeds cards, share previews,
    and the assistant's search snippets). Tags: 1–3, reuse existing repo tags
    before inventing new ones. First paragraph must stand alone — the
    assistant quotes it as a search snippet.
-6. Run `python3 scripts/check.py`.
+7. Run `python3 scripts/check.py`.
 
 ## Output
 

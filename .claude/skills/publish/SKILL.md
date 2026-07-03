@@ -30,9 +30,12 @@ before the push itself.
 ## Update a published post
 
 Edit in place — never rename the file (URL stability; the assistant's search
-index re-embeds changed content on its own). Commit `post: update <slug>`.
-For substantive corrections add a short *errata* note at the bottom of the
-post rather than silently rewriting claims.
+index re-embeds changed content on its own). For substantive changes set
+`updated` to the current moment (same RFC3339 format as `published`; the site
+shows it on the article page) — skip it for typo and typography fixes. Never
+touch `published`. Commit `post: update <slug>`. For substantive corrections
+add a short *errata* note at the bottom of the post rather than silently
+rewriting claims.
 
 ## Retract
 

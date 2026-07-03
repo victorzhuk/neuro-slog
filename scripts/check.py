@@ -17,7 +17,9 @@ KEY_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$")
 RFC3339_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T")
 MAX_FILE = 1 << 20
 DESC_MAX = 160
-KNOWN_KEYS = {"title", "date", "published", "tags", "description", "draft"}
+KNOWN_KEYS = {"title", "date", "published", "updated", "tags", "description", "draft"}
+ASCII_TYPO_RE = re.compile(r" -- | -> | <- | <-> |\.\.\.")
+CODE_SPAN_RE = re.compile(r"`[^`]*`")
 META_FILES = {"readme.md", "claude.md", "agents.md", "contributing.md", "license.md"}
 
 
@@ -154,6 +156,15 @@ def main(argv):
             except ValueError:
                 err(rel, f"published {published!r} is not an RFC3339 timestamp")
 
+        updated = fm.get("updated", "")
+        if updated:
+            try:
+                ts = datetime.datetime.fromisoformat(updated)
+                if ts.tzinfo is None:
+                    warn(rel, "updated has no timezone offset — use full RFC3339")
+            except ValueError:
+                err(rel, f"updated {updated!r} is not an RFC3339 timestamp")
+
         draft = str(fm.get("draft", "false")).lower()
         if draft not in ("true", "false"):
             err(rel, f"draft must be true or false, got {fm['draft']!r}")
@@ -174,6 +185,18 @@ def main(argv):
 
         if not body and not is_draft:
             err(rel, "published article has an empty body")
+
+        if not is_draft:
+            in_fence = False
+            for n, line in enumerate(body.splitlines(), start=1):
+                if line.lstrip().startswith("```"):
+                    in_fence = not in_fence
+                    continue
+                if in_fence:
+                    continue
+                m = ASCII_TYPO_RE.search(CODE_SPAN_RE.sub("", line))
+                if m:
+                    warn(rel, f"body line {n}: ascii typography {m.group().strip()!r} — run the editor typography pass (— → ← ↔ …)")
 
         if fm.get("date") and check_date(fm["date"]) is None:
             d = datetime.date.fromisoformat(fm["date"])
