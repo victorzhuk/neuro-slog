@@ -1,12 +1,11 @@
 ---
-draft: true
 title: a personal site with no database
 date: 2026-07-03
 tags: [go, architecture]
 description: how victorzh.uk stays stateless — embedded facts, in-memory articles, client-carried chat
 ---
 
-victorzh.uk runs as a single Go binary in Kubernetes and owns no storage at all.
+I run victorzh.uk as a single Go binary in Kubernetes. It owns no storage at all.
 
 Everything that looks like state lives somewhere cheaper:
 
@@ -27,4 +26,4 @@ The cost: startup does a little more work, and anything truly persistent —
 visitor messages, for example — has to leave the system immediately (those are
 relayed straight to Telegram).
 
-For a personal site this trade is not close.
+For my personal site this trade isn't close.
