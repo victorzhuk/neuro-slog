@@ -1,5 +1,4 @@
 ---
-draft: true
 title: deterministic intake beats a model tool
 date: 2026-07-03
 tags: [go, llm, chat]
