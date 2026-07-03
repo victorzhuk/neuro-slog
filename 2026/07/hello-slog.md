@@ -1,5 +1,4 @@
 ---
-draft: true
 title: hello, neuro slog
 date: 2026-07-03
 tags: [meta]
