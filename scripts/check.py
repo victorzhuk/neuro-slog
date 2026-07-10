@@ -85,6 +85,13 @@ def parse_frontmatter(lines):
             else:
                 fm[key] = [unquote(value)]
         else:
+            stripped = value.strip()
+            is_quoted = len(stripped) >= 2 and stripped[0] == stripped[-1] and stripped[0] in "'\""
+            if not is_quoted and (": " in value or value.rstrip().endswith(":")):
+                errors.append(
+                    f"frontmatter {key!r} has an unquoted ':' — the site YAML "
+                    f"parser rejects it and silently drops the post. Quote the value."
+                )
             fm[key] = unquote(value)
     body = "".join(lines[end + 1:]).strip()
     return fm, body, errors
