@@ -1,5 +1,5 @@
 ---
-title: one supabase, many apps: connection pooling for self-hosted supabase on dokploy
+title: "one supabase, many apps: connection pooling for self-hosted supabase on dokploy"
 date: 2026-07-10
 published: 2026-07-10T23:37:31+03:00
 tags: [architecture, supabase, dokploy]
