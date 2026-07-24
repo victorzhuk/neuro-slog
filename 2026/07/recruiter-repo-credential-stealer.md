@@ -12,7 +12,7 @@ A recruiting chat for a senior backend lead role ended with a GitHub link. The f
 
 A recruiter account messaged me on LinkedIn about a FinTech + AI product. Role: Backend Engineering Leader for a DeFi platform running AI agents. We talked background, salary, employment status, notice period. Looked like a normal early screen.
 
-Then they asked me to review the existing frontend before a founder interview and sent `github[.]com/ADDPOP/ZeithFi`.
+Then they asked me to review the existing frontend before a founder interview and sent `https://github.com/ADDPOP/ZeithFi`.
 
 The repo was malicious.
 
@@ -58,7 +58,7 @@ I asked how the employment relationship would be formalized.
 
 No answer. The next message was the repo:
 
-> Great, here is our current project repo: `github[.]com/ADDPOP/ZeithFi`
+> Great, here is our current project repo: `https://github.com/ADDPOP/ZeithFi`
 >
 > Please review the current UI workflow and let me know if you have any problem.
 
@@ -547,13 +547,13 @@ Endpoint controls:
 Suricata rules for the two stages:
 
 ```text
-alert tls $HOME_NET any -> $EXTERNAL_NET 443 (msg:"MALWARE ZeithFi stage-1 C2 TLS SNI"; flow:established,to_server; tls.sni; content:"checkmyip-address.vercel.app"; nocase; classtype:trojan-activity; sid:4200241; rev:1;)
+alert tls $HOME_NET any -> $EXTERNAL_NET 443 (msg:"MALWARE ZeithFi stage-1 C2 TLS SNI"; flow:established,to_server; tls.sni; content:"checkmyip-address.vercel.app"; nocase; reference:url,github.com/ADDPOP/ZeithFi; classtype:trojan-activity; sid:4200241; rev:1;)
 
-alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE ZeithFi stage-1 environment exfiltration route"; flow:established,to_server; http.method; content:"POST"; http.host; content:"checkmyip-address.vercel.app"; nocase; http.uri; content:"/api/ip-check-encrypted/3aeb34a35"; startswith; http.header; content:"x-secret-header|3a 20|secret"; nocase; classtype:credential-theft; sid:4200242; rev:1;)
+alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE ZeithFi stage-1 environment exfiltration route"; flow:established,to_server; http.method; content:"POST"; http.host; content:"checkmyip-address.vercel.app"; nocase; http.uri; content:"/api/ip-check-encrypted/3aeb34a35"; startswith; http.header; content:"x-secret-header|3a 20|secret"; nocase; reference:url,github.com/ADDPOP/ZeithFi; classtype:credential-theft; sid:4200242; rev:1;)
 
-alert tcp $HOME_NET any -> 153.75.87.26 [8085,8086,8087] (msg:"MALWARE ZeithFi stage-2 direct C2 connection"; flow:to_server; flags:S; threshold:type limit, track by_src, count 1, seconds 300; classtype:trojan-activity; sid:4200243; rev:2;)
+alert tcp $HOME_NET any -> 153.75.87.26 [8085,8086,8087] (msg:"MALWARE ZeithFi stage-2 direct C2 connection"; flow:to_server; flags:S; threshold:type limit, track by_src, count 1, seconds 300; reference:url,github.com/ADDPOP/ZeithFi; classtype:trojan-activity; sid:4200243; rev:2;)
 
-alert http $HOME_NET any -> 153.75.87.26 8087 (msg:"MALWARE ZeithFi stage-2 Socket.IO RAT channel"; flow:established,to_server; http.uri; content:"/socket.io/"; startswith; classtype:trojan-activity; sid:4200247; rev:1;)
+alert http $HOME_NET any -> 153.75.87.26 8087 (msg:"MALWARE ZeithFi stage-2 Socket.IO RAT channel"; flow:established,to_server; http.uri; content:"/socket.io/"; startswith; reference:url,github.com/ADDPOP/ZeithFi; classtype:trojan-activity; sid:4200247; rev:1;)
 ```
 
 The second rule only fires on plaintext traffic or after TLS inspection. Renumber the SIDs into your own local range.
@@ -567,6 +567,7 @@ rule ZeithFi_PostCSS_EnvStealer_Loader
 {
     meta:
         description = "Malicious ADDPOP/ZeithFi PostCSS configuration"
+        reference = "https://github.com/ADDPOP/ZeithFi"
         date = "2026-07-24"
         sha256 = "adb656707d4b8adc3ec8ca1a262827d1dd445acd24654b967b88b6121c25a450"
 
