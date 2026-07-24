@@ -12,7 +12,7 @@ A recruiting chat for a senior backend lead role ended with a GitHub link. The f
 
 A recruiter account messaged me on LinkedIn about a FinTech + AI product. Role: Backend Engineering Leader for a DeFi platform running AI agents. We talked background, salary, employment status, notice period. Looked like a normal early screen.
 
-Then they asked me to review the existing frontend before a founder interview and sent `https://github.com/ADDPOP/ZeithFi`.
+Then they asked me to review the existing frontend before a founder interview and sent `github[.]com/ADDPOP/ZeithFi`.
 
 The repo was malicious.
 
@@ -58,7 +58,7 @@ I asked how the employment relationship would be formalized.
 
 No answer. The next message was the repo:
 
-> Great, here is our current project repo: `https://github.com/ADDPOP/ZeithFi`
+> Great, here is our current project repo: `github[.]com/ADDPOP/ZeithFi`
 >
 > Please review the current UI workflow and let me know if you have any problem.
 
